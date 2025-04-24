@@ -797,20 +797,15 @@
         addOutput('No script to execute', 'warning');
         return;
     }
-
-    // Remove the frontend "Executing script..." message
-    // We'll let the backend handle this message
-    
-    // Add animation to execute button
     const executeBtn = document.getElementById('executeButton');
     executeBtn.classList.add('processing');
     executeBtn.disabled = true;
     
     try {
-        chrome.webview.postMessage(JSON.stringify({
-            action: 'execute',
-            script: script
-        }));
+        window.chrome.webview.postMessage(JSON.stringify({ 
+    action: 'execute', 
+    script: script 
+}));
     } catch (e) {
         addOutput(`Execution error: ${e.message}`, 'error');
         executeBtn.classList.remove('processing');
